@@ -1,0 +1,215 @@
+#session-form-background {
+    // position: absolute;
+    
+    background: #fafafa;
+    width: 100%;
+    border-top: 1px solid rgba(0,0,0,.12);
+    height: 100vh;
+    // height: auto
+}
+
+#testing-footer{
+    background:  #0f1721;
+    margin-top: 15px;
+    // height: 336px;
+}
+
+.login-form-container {
+    // position: relative;
+    background: white;
+    border-radius: 5px;    
+    border: 1px solid rgba(0,0,0,.12);
+    border-bottom: 1px solid rgba(0,0,0,.26);
+    font-size: 20px;
+    width: 450px;
+    height: auto;
+    margin: 64px auto 16px;
+    display: flex;
+    flex-direction: column;
+    
+    input{
+        border: 2px solid black;
+        // margin: 20px;
+    }
+
+    
+
+    #login-form-header{
+        display: flex;
+        flex-direction: column;
+        font-weight: 500;
+        line-height: 1.6;
+        padding: 16px 16px 0px 16px;
+        #session-form-title{
+            font-size: 34px;
+            font-weight: 500;
+            padding-bottom: 8px;
+                img{
+                    width:15px;
+                    height: auto;
+                    display: inline-block;
+                    margin-left: 5px;
+                }            
+        }   
+        #session-form-switch{
+            font-size: 13px;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+    }
+}
+
+#login-form-content{            
+    // width: 100%;
+    padding: 16px 16px 0px 16px;    
+    border-top: 1px solid rgba(0,0,0,.12);
+}
+
+#login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    .session-form-label{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 16px;
+        font-weight: 500px;
+        font-size: 13px;
+        .session-input-field{
+            align-self: stretch;
+            // margin-bottom: 16px;  
+            border: 1px solid rgba(0,0,0,.12);
+            line-height: 1.45;
+            padding: 4px;
+            font-size: 16px;
+            border-radius: 3px;
+            background-color: #fafafa;  
+            text-align: left;            
+            &:focus{
+                border-color: #1a1aff;
+            }
+        }  
+    }  
+    #session-submit{
+        width: fit-content;
+        margin: 12px 16px 16px 0px;
+        // background-color: rgba(234, 0, 65,1.0);
+        color: white;
+        border-radius: 3px;
+        font-size: 16px;
+        font-weight: 600;
+        min-height: 36px;
+        align-self: left;
+        vertical-align: middle;
+        line-height: 1;
+        padding: 0px 16px 0 16px;
+        stroke: transparent;
+        fill: #fff;
+        color: #fff;
+        background: #ed1c40;
+        border-color: #ed1c40;
+    }  
+}
+
+#demo-user-container{
+    background-color: rgb(216, 223, 234);
+    text-align: center;
+    height: 130px;
+    padding: 16px 0px 16px 0px;
+    border-top: 1px solid #627AAD;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+
+    #Or-box{
+        background: #FFF;
+        height: 16px;
+        text-align: center;
+        font-weight: 700;
+        margin: -24px auto 0px;
+        width: 32px;
+        line-height: 14px;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    #demo-user-button-area{
+        margin: 56px 16px auto 16px;
+        display: flex;
+        justify-content: left;
+        
+        img{
+            width: auto;
+            height: 40px;
+        }
+
+        @keyframes blinking {
+            0% {
+                background-color: rgb(59,89,152); 
+                box-shadow: 10px 5px 0px red;
+            }
+            50% {
+                background-color: rgb(137, 154, 192); 
+                box-shadow: 10px 5px 5px red;
+            }
+            100%{
+                background-color: rgb(235, 134, 210);
+                box-shadow: 10px 5px 10px red;
+            }
+        }
+
+        #demo-user-button{
+            border: 1px solid darkblue;
+            border-left: 2px solid white;
+            width: 400px;
+            align-self: center; 
+            border-radius: 3px;
+            font-size: 16px;
+            font-weight: 600;
+            min-height: 36px;  
+            background-color: rgb(59,89,152);  
+            border-radius: 3px;  
+            animation: blinking 1300ms infinite;
+            // margin-top: 12px;
+            #demo-user-span{
+                color: white;
+                
+                font-size: 16px;
+                font-weight: 600;
+                min-height: 36px;
+            }
+        }
+    }
+
+    
+
+    // .demo-user-span{
+    //     margin: 15px 0px 15px 0px;      
+    // }
+}
+
+#close-button{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.error-message{
+    color: red;
+}
+
+.session-link{
+    margin-left: 4px;
+    color: blue;
+    &:hover{
+        text-decoration: underline;
+    }
+}  
+
+.form-field{
+    font-weight: 600;
+    padding-bottom: 4px;
+}
