@@ -1,39 +1,31 @@
-import React from "react";
-import { Route, Switch, Link } from "react-router-dom";
-import { NotLoggedRoute, ProtectedRoute } from "../util/route_util";
+import React from 'react';
+import BannerContainer from "./Banner/banner_container"
+import SessionContainer from "./Session/session_container";
+import {Switch, Route} from 'react-router-dom';
+import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
-import BannerContainer from "./Banner/banner_container";
-import LogInContainer from "./Session/login_container";
-import CreateAccountContainer from "./Session/signup_container";
-import SplashContainer from "./Splash/splash";
-import EventNearYou from "./Events/temp_events";
-import FindContainer from "./Find/find_container";
 
-import GroupContainer from "./Groups/group_container";
 
+const TestComponent = () => (
+    <div>
+        test login page
+    </div>
+)
 
 const App = () => {
-    
+    const sessionprops = {
+        form: "login"
+    }
     return(
-    
-    <div id="App">
-        <BannerContainer />
-        <Switch>
-            <NotLoggedRoute exact path="/login"  component={props => (
-                <div id="app-login-container">
-                    <LogInContainer />
-                    <EventNearYou />
-                </div>
-            )} />      
-            <NotLoggedRoute exact path="/signup" component={CreateAccountContainer} />
-        </Switch>
-        <NotLoggedRoute exact path="/" component={SplashContainer} />
-        
-        <Route path="/groups/:groupId" component={GroupContainer} />
-         
-        <ProtectedRoute exact path="/find" component={FindContainer} />
-    </div>
-)}
+        <div id="app">
+            <BannerContainer/>
+            {/*<Route path="/login" component={TestComponent}/>*/}
+            <Switch>
+                <AuthRoute component={SessionContainer} exact path="/login" />
+                <AuthRoute component ={TestComponent} exact path="signup"/> 
+            </Switch>
+        </div>
+    )
+}
 
 export default App;
-

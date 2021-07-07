@@ -19,7 +19,10 @@ const Root = ({store}) => (
       <App />
     </HashRouter>
   </Provider>
-);
+)
+  
+
+
 
 document.addEventListener("DOMContentLoaded", ()=>{
   const root = document.getElementById("root");

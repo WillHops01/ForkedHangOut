@@ -1,31 +1,34 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Route, Redirect, withRouter } from 'react-router-dom';
+import React from "react";
+import {connect} from "react-redux";
+import {Route, Redirect, withRouter} from "react-router-dom";
 
-const NotLogged = ({ component: Component, path, loggedIn, exact }) => (
-  <Route path={path} exact={exact} render={(props) => (
-    !loggedIn ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to="/find" />
-    )
-  )} />
-);
+const Auth = ({component: Component, path, loggedIn, exact}) => {
+  return(
+    <Route path={path} exact={exact} render={(props) => (
+      !loggedIn ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/"/>
+      )
+    )}/>
+  )
+}
 
-const Protected = ({ component: Component, path, loggedIn, exact }) => (
-  <Route path={path} exact={exact} render={(props) => (
-     loggedIn ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to="/login" />
-    )
-  )} />
-);
+const Protected = ({component: Component, path, loggedIn, exact}) => {
+  return(<Route path={path} exact={exact} render={(props) => (
+      loggedIn ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/" />
+      )
+    )}/>
+  )
+}
 
-const msp = state => (
-  {loggedIn: Boolean(state.session.id)}
-);
-
-export const NotLoggedRoute = withRouter(connect(msp)(NotLogged));
+const msp = state => {
+  return {loggedIn: Boolean(state.session.id)}
+}
+  
+export const AuthRoute = withRouter(connect(msp)(Auth));
 
 export const ProtectedRoute = withRouter(connect(msp)(Protected));

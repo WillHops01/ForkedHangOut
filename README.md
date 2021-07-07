@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# ForkedHangOut
-=======
 <h1 align="center">Hang Out App</h1>
 
 
@@ -96,4 +93,3 @@ Rather than this.setState for each element on each iteration, instead we create 
 * search
 * Google location API
 
->>>>>>> 72b90082897704a49dc3ab4fe59763d69437f122

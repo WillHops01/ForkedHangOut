@@ -1,194 +1,127 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React from "react";
+import {Link} from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
-class SessionForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      email: ""
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.renderLogin = this.renderLogin.bind(this);
-    this.renderSignup = this.renderSignup.bind(this);
-  }
+class SessionForm extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            formType: ((this.props.location.pathname == "/login") ? ("login"):("signup")),
+            username: "",
+            password: "",
+            email: ""
+        }
+        this.loginForm = this.loginForm.bind(this);
+        this.getUserInfo = this.getUserInfo.bind(this);
+        this.submitForm = this.submitForm.bind(this);
+        this.demoLogin = this.demoLogin.bind(this);
+    }
 
-  update(field) {
-    return e => this.setState({
-      [field]: e.currentTarget.value
-    });
-  }
+    demoLogin(){
+        let user = Object.assign({},{
+            email: "DemoUser",
+            password: "hunter2"
+        })
+        this.props.loginSubmit(user).then(()=>
+            this.props.history.push("/"));
+    }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const user = Object.assign({}, this.state);
-    this.props.processForm(user).then(() => this.props.history.push("/find"));
-  }
+    updateField(info){
+        return e => this.setState({
+            [info]: e.currentTarget.value
+        })
+    }
 
-  renderErrors() {
-    return(
-      <ul>
-        {this.props.errors.map((error, i) => (
-          <li className="error-message"
-            key={`error-${i}`}>
-            {error}
-          </li>
-        ))}
-      </ul>
-    );
-  }
+    submitForm(e){
+        e.preventDefault();
+        let user = Object.assign({},{
+            username: this.state.username,
+            password: this.state.password,
+            email: this.state.email
+        })
+        if (this.state.formType == "login"){
+            this.props.loginSubmit(user).then(()=>
+                this.props.history.push("/")
+            )
+        }
+    }
 
-  handleClose(e) {
-    e.preventDefault();
-    let path = `/`;
-    this.props.history.push(path);
-  }
+    getUserInfo(){
+        let submitText = "Log In"
+        return(
+            <form id="session-form" onSubmit={this.submitForm}>
+                <label className="session-form-box">
+                    Email Address:
+                </label>
+                <input type="text" 
+                        className="session-form-box input-field"
+                        value={this.state.email}
+                        onChange={this.updateField("email")}/>
+                <label className="session-form-box">
+                    Password:
+                </label>
+                <input type="password" 
+                        className="session-form-box input-field"
+                        value={this.state.password}
+                        onChange={this.updateField("password")}/>
+                {this.state.formType=="signup"
+                    &&
+                        <div>
+                            SignUp
+                        </div>
+                }
+                <input type="submit" value={submitText} id="session-form-submit"/>    
+            </form>
+        )
+    }
 
-  renderLogin(){
-    return(
-      <div className="login-form-container">
-        <div id="login-form-header">
-          {/* <button id="close-button" onClick={this.handleClose}>
-            {`\u0078`}
-          </button>         */}        
-          <h2 id="session-form-title">
-            Log in
-            <img src="https://secure.meetupstatic.com/s/img/09300654065624139187/icon/icon_padlock.gif" />
-          </h2>
-          <p id="session-form-switch">
-            Not registered with us yet? 
-            <Link to="/signup" className="session-link">Sign up</Link>
-          </p>
-        </div>
+    loginForm(){
+        return(
+            <div id="session-form-inner-container">
+                <section className="login-form-section" id="login-form-head">
+                    <h2 id="login-form-login" className="session-form-header">
+                        Log In
+                    </h2>
+                    <div id="login-form-registered" className="session-form-header">
+                        Not registered with us yet?
+                        <Link to="signup" className="session-link">Sign Up</Link>
+                    </div>
+                </section>
+                <section className="login-form-section">
+                    {this.getUserInfo()}
+                </section>
+                <section className="login-form-section" id="login-form-foot">
+                    <div id="or-container">
+                        <div id="login-form-or">
+                            Or
+                        </div>
+                    </div>
+                    <div id="demo-user-button-container">
+                        <img src="Appacademylogo.png" />
+                        <button 
+                            type="button"
+                            onClick={()=>this.demoLogin()}
+                            id="demo-user-button">
+                                Demo User Log In
+                        </button>
+                    </div>
+                </section>
+            </div>
+        )
+    }
 
-        <div id="login-form-content">
-          <form id="login-form" onSubmit={this.handleSubmit} >          
-            {this.renderErrors()}
-            <label className="session-form-label">
-              <span className="form-field">Email address:</span>
-              <input className="session-input-field"
-                type="text"
-                value={this.state.email}
-                onChange={this.update('email')}
-              />
-            </label>
-            <label className="session-form-label">
-              <span className="form-field">Password:</span>
-              <input className="session-input-field"
-                type="password"
-                value={this.state.password}
-                onChange={this.update('password')}
-              />
-            </label>
-            <input id="session-submit" type="submit" value="Log in" /> 
-          </form>
-        </div>
-
-        <div id="demo-user-container">
-          <section id="Or-box">OR</section>
-          {/* <span className="demo-user-span">OR</span> */}
-          <section id="demo-user-button-area">
-            <img src="Appacademylogo.png" />
-            <button id="demo-user-button" onClick={(event) => {
-              this.state.email = "DemoUser",
-                this.state.password = "hunter2",
-                this.handleSubmit(event)
-             }}> 
-              <span id="demo-user-span">
-                Demo User Log In
-              </span>
-            </button>
-          </section>
-          
-        </div>
-      </div>
-      
-    )
-  }
-
-  renderSignup(){
-    return (
-      <div id="signup-form-container">
-        {/* <button id="close-button" onClick={this.handleClose}>
-          {`\u0078`}
-        </button> */}
-        <div id="signup-header">
-          <h1 id="signup-title">
-            Sign up
-          </h1>
-        </div>  
-
-        <form id="signup-form" onSubmit={this.handleSubmit} >
-          {this.renderErrors()}
-          <label className="signup-form-label">
-            <span className="form-field">Username</span>
-            <input className="signup-input-field"
-              type="text"
-              value={this.state.username}
-              onChange={this.update('username')}
-            />
-          </label>
-          <label className="signup-form-label">
-            <span className="form-field">Email address</span>
-            <input className="signup-input-field"
-              type="text"
-              value={this.state.email}
-              onChange={this.update('email')}
-            />
-          </label>
-          <label className="signup-form-label">
-            <span className="form-field">Password</span>
-            <input className="signup-input-field"
-              type="password"
-              value={this.state.password}
-              onChange={this.update('password')}
-            />
-          </label>
-          
-
-          <div id="signup-location-info">
-            PLACEHOLDER FOR LOCATION
-          </div>
-          <div id="signup-disclaimer">
-            Your name is public. We'll use your email address to send you updates, and your location to find Meetups near you.
-
-          </div>
-
-          <input id="signup-submit" type="submit" value="Continue" />
-
-
-        </form>
-        <div id="signup-switch-area">
-          <div id="signup-switch-text">
-            <span >
-              Already a member?
-              <Link to="/login" className="session-link">
-                  Log in
-              </Link>
-              .
-            </span>
-          </div>
-          
-        </div>
-
-      </div>
-    )
-
-  }
-
-  render() {
-    let form = this.props.formType === "login" ? this.renderLogin() : this.renderSignup();
-    
-    return (
-      <div id="session-form-background">
-        { form }    
-          
-      </div>
-    );
-  }
+    render(){
+        console.log(this.state.formType)
+        return(
+            <div id="session-form-container">
+                {(this.state.formType=="login") ? 
+                (this.loginForm()):
+                (<div/>)
+                }
+            </div>
+        )
+    }
 }
 
 export default withRouter(SessionForm);
+

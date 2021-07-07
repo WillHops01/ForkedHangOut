@@ -1,0 +1,42 @@
+// @import '../animation.css';
+
+#banner-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: sticky;
+    background-color: aquamarine;
+    align-items: center;
+
+    #banner-main-button{
+        margin: 10px;
+        //border: 2px solid red;
+        
+        cursor: pointer;
+        animation-name: animatedDrop;
+        animation-duration: 3s;
+        animation-timing-function:ease;
+
+        #banner-container-text{
+            font-family: 'Archivo Narrow', sans-serif;
+            font-size: 50px;
+            color: rgb(246,64,96);
+            line-height: 60px;
+
+            &:hover{
+                font-size: 60px;
+            }
+        }
+    }
+
+    #session-link-container{
+        padding: 10px;
+        //border: 2px solid red;
+
+        .session-link-button{
+            margin: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    }
+}
